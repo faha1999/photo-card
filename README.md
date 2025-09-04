@@ -4,7 +4,7 @@ Create customizable photo cards with templates, filters, and adjustable image se
 
 ## 🚀 Live Demo
 
-Check out the live demo: [Photo Card Generator](https://photo-card-faha1999.vercel.app)
+Check out the live demo: [Photo Card Generator](https://photo-card-beta.vercel.app/)
 
 ## 🎥 Demo Preview
 
@@ -43,25 +43,33 @@ Transform your product photos into stunning social media content with this power
 
 ```
 ├── public/
-│   └── templates/         # Card template images
-│       ├── logo.png
-│       └── template.png
+│   ├── templates/        # Card template images
+│   │   ├── logo.png
+│   │   └── template.png
+│   └── video/           # Demo assets
+│       └── demo.gif     # Application demo
 ├── src/
-│   ├── app/              # Next.js app directory
-│   │   ├── Footer.jsx    # Footer component
-│   │   ├── globals.css   # Global styles
-│   │   ├── layout.js     # Root layout
-│   │   └── page.js       # Home page
-│   ├── components/       # React components
-│   │   ├── CardPreview.jsx   # Preview component
-│   │   ├── Controls.jsx      # Resolution controls
-│   │   └── UploadArea.jsx    # File upload area
+│   ├── app/             # Next.js app directory
+│   │   ├── Footer.tsx   # Footer component
+│   │   ├── globals.css  # Global styles
+│   │   ├── layout.tsx   # Root layout
+│   │   └── page.tsx     # Home page
+│   ├── components/      # React components
+│   │   ├── CardPreview.tsx    # Preview component
+│   │   ├── Controls.tsx       # Image controls
+│   │   ├── TemplateManager.tsx # Template management
+│   │   └── UploadArea.tsx     # File upload area
+│   ├── types/          # TypeScript definitions
+│   │   ├── css.d.ts    # CSS type definitions
+│   │   └── index.ts    # Common type definitions
 │   └── utils/
-│       └── generateCard.js    # Card generation logic
-├── jsconfig.json         # JavaScript configuration
-├── next.config.mjs       # Next.js configuration
-├── package.json         # Project dependencies
-└── postcss.config.mjs   # PostCSS configuration
+│       └── generateCard.ts    # Card generation logic
+├── next-env.d.ts       # Next.js TypeScript definitions
+├── next.config.mjs     # Next.js configuration
+├── package.json        # Project dependencies
+├── postcss.config.js   # PostCSS configuration
+├── tailwind.config.js  # Tailwind CSS configuration
+└── tsconfig.json      # TypeScript configuration
 ```
 
 ## Getting Started
@@ -110,48 +118,126 @@ Transform your product photos into stunning social media content with this power
 
 ## 🧩 Components
 
-### CardPreview.tsx
+### App Components (`src/app/`)
 
-- Renders the real-time preview of the photo card
-- Handles image filters and effects
-- Manages guide overlay functionality
-- Provides final image generation
+#### Footer.tsx
 
-### Controls.tsx
+- Renders the application footer
+- Contains project attribution and links
+- Responsive design with Tailwind CSS
 
-- Manages image scaling options
-- Controls filter adjustments (brightness, contrast, etc.)
-- Handles filename customization
-- Toggles guide overlay
-- Manages export format selection
+#### Layout.tsx
 
-### TemplateManager.tsx
+- Main application layout wrapper
+- Handles metadata and SEO settings
+- Manages global styles and fonts
 
-- Provides template selection interface
-- Manages template previews
-- Handles template switching
+#### Page.tsx
 
-### UploadArea.tsx
+- Main application page component
+- Orchestrates component composition
+- Manages global state and data flow
 
-- Manages drag-and-drop file uploads
-- Handles initial image processing
-- Provides upload status feedback
-- Validates file types (JPG/JPEG/PNG for photos, PNG only for templates)
-- Enforces 10MB file size limit
-- Shows validation feedback via popups and inline messages
+### Feature Components (`src/components/`)
 
-## 🛠️ Utils
+#### CardPreview.tsx
+
+- Renders real-time photo card preview
+- Implements HTML5 Canvas for image manipulation
+- Handles filters and effects (brightness, contrast, etc.)
+- Manages guide overlay for positioning
+- Provides real-time visual feedback
+- Supports touch interactions for mobile users
+
+#### Controls.tsx
+
+- Image adjustment interface
+- Scale/resize controls with predefined options
+- Advanced filter controls:
+  - Brightness and contrast sliders
+  - Grayscale and sepia effects
+  - Blend mode selection
+- Export format selection (PNG/JPEG)
+- Custom filename input
+- Guide overlay toggle
+- Reset functionality
+
+#### TemplateManager.tsx
+
+- Template selection and management interface
+- Supports default and custom templates
+- PNG template upload functionality
+- Template preview with live updates
+- Template deletion and renaming features
+- Local storage integration for user templates
+- Drag-and-drop template switching
+
+#### UploadArea.tsx
+
+- Smart file upload component
+- Drag-and-drop functionality
+- File type validation:
+  - Photos: JPG, JPEG, PNG support
+  - Templates: PNG only restriction
+- 10MB file size limit enforcement
+- Real-time validation feedback
+- User-friendly error messages
+- Progress and status indicators
+
+## � Types (`src/types/`)
+
+### css.d.ts
+
+- TypeScript definitions for CSS modules
+- Style-related type declarations
+- Custom CSS property definitions
+
+### index.ts
+
+- Core type definitions
+- Interface declarations for:
+  - Filter settings
+  - Position coordinates
+  - Card state management
+  - Component props
+  - Image generation options
+
+## 🛠️ Utils (`src/utils/`)
 
 ### generateCard.ts
 
-Contains the core logic for generating the final photo card:
+- Core image processing functionality
+- Advanced features:
+  - Image scaling and positioning
+  - Filter and effect application
+  - Template overlay handling
+  - Guide rendering system
+  - Multiple export format support
+  - Base64 conversion
+  - Error handling
+  - Performance optimizations
 
-- Image scaling and positioning
-- Filter application
-- Template overlay
-- Guide rendering
-- Export format handling (PNG/JPEG)
-- Download functionality
+## ⚙️ Configuration Files
+
+### next.config.mjs
+
+- Next.js framework configuration
+- Image optimization settings
+- Build and deployment options
+
+### tailwind.config.js
+
+- Tailwind CSS customization
+- Theme and color palette settings
+- Responsive breakpoints
+- Custom plugin configuration
+
+### tsconfig.json
+
+- TypeScript compiler options
+- Path aliases and module resolution
+- Strict type checking settings
+- Build optimization rules
 
 ## 🤝 Contributing
 

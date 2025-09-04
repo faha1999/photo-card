@@ -1,0 +1,26 @@
+{
+  "name": "photo-card",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/font": "^14.2.15",
+    "lucide-react": "^0.542.0",
+    "next": "15.4.7",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "@types/react": "^19.1.12",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.9.2"
+  }
+}

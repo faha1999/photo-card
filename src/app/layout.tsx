@@ -2,6 +2,7 @@ import React from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Footer from './Footer'; // Client component for footer with dynamic year
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -46,7 +47,7 @@ export default function RootLayout({
         </header>
 
         <main className="max-w-5xl mx-auto px-4 py-8">{children}</main>
-
+        <Analytics />
         <Footer />
       </body>
     </html>

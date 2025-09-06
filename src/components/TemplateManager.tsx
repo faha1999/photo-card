@@ -24,18 +24,22 @@ export default function TemplateManager({
 
   // Load default templates + user templates from localStorage
   useEffect(() => {
-    const defaultTemplates = [
-      {
-        id: 'template1',
-        name: 'Default Template',
-        path: '/templates/template.png',
-      },
-      { id: 'logo', name: 'Logo Template', path: '/templates/logo.png' },
-    ];
+    const fetchTemplates = async () => {
+      try {
+        const response = await fetch('/api/templates');
+        const defaultTemplates = await response.json();
 
-    const stored = JSON.parse(localStorage.getItem('userTemplates') || '[]');
-    setTemplates([...defaultTemplates, ...stored]);
-    setUserTemplates(stored);
+        const stored = JSON.parse(
+          localStorage.getItem('userTemplates') || '[]',
+        );
+        setTemplates([...defaultTemplates, ...stored]);
+        setUserTemplates(stored);
+      } catch (error) {
+        console.error('Error fetching templates:', error);
+      }
+    };
+
+    fetchTemplates();
   }, []);
 
   // Handle file upload → convert to base64 → save to localStorage

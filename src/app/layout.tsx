@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Footer from './Footer'; // Client component for footer with dynamic year
 import { Analytics } from '@vercel/analytics/next';
+import ThemeToggle from '../components/ThemeToggle';
+import { ThemeProvider } from '../components/ThemeProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -25,30 +27,41 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`bg-gray-50 text-gray-900 font-sans bg-gradient-to-tr from-indigo-50 via-white to-pink-50 min-h-screen`}>
-        <header className="bg-white shadow-sm">
-          <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-center">
-            <div className="flex items-center space-x-3">
-              <img
-                src="/templates/logo.png"
-                alt="SylChina Express Logo"
-                className="h-12 w-auto md:h-20 scale-130"
-              />
-              <h1 className="text-xl sm:text-2xl font-bold text-green-950 whitespace-nowrap">
-                Photo Card
-                <span className="text-blue-800/100 dark:text-sky-800/100 ml-2">
-                  Studio
-                </span>
-              </h1>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}>
+      <body className="min-h-screen bg-transparent text-base transition-colors duration-300">
+        <ThemeProvider>
+          <header
+            className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 supports-[backdrop-filter]:dark:bg-slate-900/60"
+            style={{
+              backgroundColor: 'var(--surface)',
+              borderBottom: `1px solid var(--border)`,
+            }}>
+            <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/templates/logo.png"
+                  alt="SylChina Express Logo"
+                  className="h-12 w-auto md:h-16"
+                />
+                <h1 className="text-xl font-bold text-green-950 dark:text-emerald-200 sm:text-2xl">
+                  Photo Card
+                  <span className="ml-2 text-blue-800 dark:text-sky-300">
+                    Studio
+                  </span>
+                </h1>
+              </div>
+              <ThemeToggle />
             </div>
-          </div>
-        </header>
+          </header>
 
-        <main className="max-w-5xl mx-auto px-4 py-8">{children}</main>
-        <Analytics />
-        <Footer />
+          <main className="mx-auto w-full max-w-5xl px-4 py-8">
+            {children}
+          </main>
+          <Analytics />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

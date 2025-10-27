@@ -21,15 +21,16 @@ export default function Controls({
   const filterKeys = Object.keys(filters) as Array<keyof FilterSettings>;
 
   return (
-    <div className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-2xl shadow-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="surface-panel mt-6 grid grid-cols-1 gap-6 rounded-2xl p-6 shadow-md md:grid-cols-2 lg:grid-cols-3">
       {/* Scale */}
       <div>
-        <h4 className="font-semibold mb-2 text-gray-700">Scale</h4>
+        <h4 className="mb-2 font-semibold">Scale</h4>
         <div className="flex flex-wrap gap-3">
           {scaleOptions.map((opt) => (
             <label
               key={opt.value}
-              className="flex items-center gap-2 cursor-pointer px-3 py-1 border rounded-lg hover:border-indigo-500 transition">
+              className="flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-1 transition hover:border-indigo-500"
+              style={{ borderColor: 'var(--border)' }}>
               <input
                 type="radio"
                 checked={scale === opt.value}
@@ -44,23 +45,23 @@ export default function Controls({
 
       {/* File Name */}
       <div>
-        <h4 className="font-semibold mb-2 text-gray-700">File Name</h4>
+        <h4 className="mb-2 font-semibold">File Name</h4>
         <input
           type="text"
           value={fileName}
           onChange={(e) => setFileName(e.target.value)}
           placeholder="Enter file name..."
-          className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+          className="input-surface w-full rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
         />
       </div>
 
       {/* Export Format */}
       <div>
-        <h4 className="font-semibold mb-2 text-gray-700">Export Format</h4>
+        <h4 className="mb-2 font-semibold">Export Format</h4>
         <select
           value={exportFormat}
           onChange={(e) => setExportFormat(e.target.value as 'png' | 'jpeg')}
-          className="w-full border rounded-lg p-2 bg-white shadow-sm hover:border-indigo-500 focus:ring-2 focus:ring-indigo-400 focus:outline-none">
+          className="input-surface w-full rounded-lg p-2 shadow-sm hover:border-indigo-500 focus:ring-2 focus:ring-indigo-400">
           <option value="png">PNG</option>
           <option value="jpeg">JPEG</option>
         </select>
@@ -73,9 +74,9 @@ export default function Controls({
             type="checkbox"
             checked={showGuides}
             onChange={() => setShowGuides((s) => !s)}
-            className="form-checkbox h-5 w-5 text-indigo-600"
+            className="form-checkbox h-5 w-5 text-indigo-600 dark:bg-slate-800 dark:border-slate-600"
           />
-          <span className="text-gray-700 font-medium">Show Guides</span>
+          <span className="font-medium">Show Guides</span>
         </label>
       </div>
 
@@ -83,7 +84,7 @@ export default function Controls({
       <div className="col-span-1 md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {filterKeys.map((key) => (
           <div key={key} className="flex flex-col">
-            <label className="text-sm font-medium capitalize text-gray-700">
+            <label className="text-sm font-medium capitalize text-muted">
               {key}
             </label>
             <input

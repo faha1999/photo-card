@@ -103,15 +103,13 @@ export default function TemplateManager({
   };
 
   return (
-    <div className="p-6 bg-white shadow rounded-xl border border-gray-200">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">
-        Choose a Template
-      </h2>
+    <div className="surface-panel rounded-xl p-6 shadow">
+      <h2 className="mb-4 text-lg font-semibold">Choose a Template</h2>
 
       {/* Upload Button */}
       <div className="mb-4">
-        <label className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg cursor-pointer hover:bg-indigo-700 transition w-fit">
-          <Plus className="w-4 h-4" />
+        <label className="flex w-fit cursor-pointer items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white transition hover:bg-indigo-700">
+          <Plus className="h-4 w-4" />
           Upload Template
           <input
             type="file"
@@ -123,85 +121,93 @@ export default function TemplateManager({
       </div>
 
       {/* Template Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {templates.map((t) => (
-          <div
-            key={t.id}
-            onClick={() => setSelectedTemplate(t.path)}
-            className={`relative rounded-lg overflow-hidden cursor-pointer group border ${
-              selectedTemplate === t.path
-                ? 'border-indigo-500 ring-2 ring-indigo-400'
-                : 'border-gray-200 hover:border-indigo-300'
-            }`}>
-            <Image
-              src={t.path}
-              alt={t.name}
-              width={200}
-              height={200}
-              priority={t.id === 'template1'} // Add priority to the first template
-              className="object-cover w-full h-28"
-              onError={() => {
-                // Remove invalid templates from storage
-                if (t.id && userTemplates.some((ut) => ut.id === t.id)) {
-                  handleDelete(t.id);
-                }
-              }}
-            />
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+        {templates.map((t) => {
+          const isActive = selectedTemplate === t.path;
+          const showActions = userTemplates.some((ut) => ut.id === t.id);
 
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
-              {selectedTemplate === t.path ? (
-                <CheckCircle2 className="w-6 h-6 text-green-400" />
-              ) : (
-                <span className="text-white text-sm">{t.name}</span>
-              )}
-            </div>
+          return (
+            <div
+              key={t.id}
+              onClick={() => setSelectedTemplate(t.path)}
+              className={`group relative cursor-pointer overflow-hidden rounded-lg border transition ${
+                isActive
+                  ? 'border-indigo-500 ring-2 ring-indigo-400 dark:ring-indigo-500/60'
+                  : 'hover:border-indigo-400/70'
+              }`}
+              style={
+                isActive ? undefined : { borderColor: 'var(--border)' }
+              }>
+              <Image
+                src={t.path}
+                alt={t.name}
+                width={200}
+                height={200}
+                priority={t.id === 'template1'} // Add priority to the first template
+                className="h-28 w-full object-cover"
+                onError={() => {
+                  // Remove invalid templates from storage
+                  if (t.id && userTemplates.some((ut) => ut.id === t.id)) {
+                    handleDelete(t.id);
+                  }
+                }}
+              />
 
-            {/* User template actions */}
-            {userTemplates.some((ut) => ut.id === t.id) && (
-              <>
-                {/* Delete */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (t.id) handleDelete(t.id);
-                  }}
-                  className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full opacity-80 hover:opacity-100">
-                  <Trash2 className="w-4 h-4" />
-                </button>
-
-                {/* Rename */}
-                {editingId === t.id ? (
-                  <div className="absolute bottom-2 left-2 bg-white rounded-lg p-1 flex gap-1">
-                    <input
-                      type="text"
-                      value={editName}
-                      onChange={(e) => setEditName(e.target.value)}
-                      className="text-sm border px-2 py-1 rounded"
-                    />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (t.id) handleRename(t.id);
-                      }}
-                      className="bg-green-500 text-white p-1 rounded">
-                      <Save className="w-4 h-4" />
-                    </button>
-                  </div>
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100">
+                {isActive ? (
+                  <CheckCircle2 className="h-6 w-6 text-green-400" />
                 ) : (
+                  <span className="text-sm text-white">{t.name}</span>
+                )}
+              </div>
+
+              {/* User template actions */}
+              {showActions && (
+                <>
+                  {/* Delete */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setEditingId(t.id || null);
-                      setEditName(t.name);
+                      if (t.id) handleDelete(t.id);
                     }}
-                    className="absolute bottom-2 left-2 bg-yellow-500 text-white p-1 rounded-full opacity-80 hover:opacity-100">
-                    <Edit3 className="w-4 h-4" />
+                    className="absolute right-2 top-2 rounded-full bg-red-600 p-1 text-white opacity-80 transition hover:opacity-100">
+                    <Trash2 className="h-4 w-4" />
                   </button>
-                )}
-              </>
-            )}
-          </div>
-        ))}
+
+                  {/* Rename */}
+                  {editingId === t.id ? (
+                    <div className="absolute bottom-2 left-2 flex gap-1 rounded-lg bg-white p-1 shadow-sm dark:bg-slate-900">
+                      <input
+                        type="text"
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        className="input-surface rounded px-2 py-1 text-sm"
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (t.id) handleRename(t.id);
+                        }}
+                        className="rounded bg-green-500 p-1 text-white">
+                        <Save className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditingId(t.id || null);
+                        setEditName(t.name);
+                      }}
+                      className="absolute bottom-2 left-2 rounded-full bg-yellow-500 p-1 text-white opacity-80 transition hover:opacity-100">
+                      <Edit3 className="h-4 w-4" />
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -331,8 +331,8 @@ export default function CardPreview({
   };
 
   return (
-    <div className="mt-8 max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <h3 className="text-center text-2xl font-semibold text-indigo-700 mb-6 select-none">
+    <div className="surface-card mx-auto mt-8 max-w-2xl p-6">
+      <h3 className="mb-6 select-none text-center text-2xl font-semibold text-indigo-700 dark:text-indigo-300">
         Adjust Image Position
       </h3>
 
@@ -340,54 +340,55 @@ export default function CardPreview({
       <div className="flex flex-wrap justify-center gap-3 mb-4">
         <button
           onClick={() => setRotation((r) => (r - 90 + 360) % 360)}
-          className="px-3 py-2 bg-indigo-100 text-indigo-700 rounded-md">
+          className="rounded-md border border-indigo-500/40 bg-indigo-500/10 px-3 py-2 text-indigo-700 transition dark:border-indigo-400/30 dark:bg-indigo-900/30 dark:text-indigo-200">
           ◀ Rotate
         </button>
         <button
           onClick={() => setRotation((r) => (r + 90) % 360)}
-          className="px-3 py-2 bg-indigo-100 text-indigo-700 rounded-md">
+          className="rounded-md border border-indigo-500/40 bg-indigo-500/10 px-3 py-2 text-indigo-700 transition dark:border-indigo-400/30 dark:bg-indigo-900/30 dark:text-indigo-200">
           Rotate ▶
         </button>
         <button
           onClick={() => setScale((s) => Math.min(s + 0.1, 3))}
-          className="px-3 py-2 bg-green-100 text-green-700 rounded-md">
+          className="rounded-md border border-green-500/40 bg-green-500/10 px-3 py-2 text-green-700 transition dark:border-green-400/30 dark:bg-green-900/20 dark:text-green-200">
           ＋ Zoom
         </button>
         <button
           onClick={() => setScale((s) => Math.max(s - 0.1, 0.1))}
-          className="px-3 py-2 bg-green-100 text-green-700 rounded-md">
+          className="rounded-md border border-green-500/40 bg-green-500/10 px-3 py-2 text-green-700 transition dark:border-green-400/30 dark:bg-green-900/20 dark:text-green-200">
           － Zoom
         </button>
         <button
           onClick={onToggleGuides}
           className={`px-3 py-2 ${
             showGuides
-              ? 'bg-indigo-100 text-indigo-700'
-              : 'bg-gray-100 text-gray-700'
-          } rounded-md`}>
+              ? 'border border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-900/30 dark:text-indigo-200'
+              : 'border border-gray-400/40 bg-gray-100 text-gray-700 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-200'
+          } rounded-md transition`}>
           {showGuides ? 'Hide Guides' : 'Show Guides'}
         </button>
 
         {/* Background color picker */}
         <div className="flex flex-col items-center">
-          <label className="text-sm font-medium mb-1">Background Color</label>
+          <label className="mb-1 text-sm font-medium">Background Color</label>
           <input
             type="color"
             value={bgColor}
             onChange={(e) => setBgColor(e.target.value)}
-            className="w-16 h-8 rounded border"
+            className="h-8 w-16 cursor-pointer rounded border bg-transparent"
+            style={{ borderColor: 'var(--border)' }}
           />
         </div>
 
         {/* Blend mode selector */}
         <div className="flex flex-col items-center">
-          <label className="text-sm font-medium mb-1">Blend Mode</label>
+          <label className="mb-1 text-sm font-medium">Blend Mode</label>
           <select
             value={blendMode}
             onChange={(e) =>
               setBlendMode(e.target.value as GlobalCompositeOperation)
             }
-            className="border rounded-md p-1">
+            className="input-surface rounded-md p-1">
             <option value="source-over">Normal</option>
             <option value="multiply">Multiply</option>
             <option value="overlay">Overlay</option>
@@ -398,11 +399,11 @@ export default function CardPreview({
 
       {/* Guide Panel */}
       {showGuides && (
-        <div className="mb-6 p-5 bg-indigo-50 border-2 border-indigo-200 rounded-xl text-gray-700 text-sm space-y-3 shadow-sm">
+        <div className="mb-6 space-y-3 rounded-xl border border-indigo-300/50 bg-indigo-500/10 p-5 text-sm text-muted shadow-sm dark:border-indigo-400/40 dark:bg-indigo-900/20">
           <div className="flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-indigo-600"
+              className="h-5 w-5 text-indigo-600 dark:text-indigo-300"
               viewBox="0 0 20 20"
               fill="currentColor">
               <path
@@ -411,31 +412,33 @@ export default function CardPreview({
                 clipRule="evenodd"
               />
             </svg>
-            <h4 className="font-semibold text-indigo-900">Photo Card Guide</h4>
+            <h4 className="font-semibold text-indigo-900 dark:text-indigo-200">
+              Photo Card Guide
+            </h4>
           </div>
-          <ul className="grid gap-2 text-gray-600">
+          <ul className="grid gap-2 text-muted">
             <li className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              <span className="h-2 w-2 rounded-full bg-indigo-400"></span>
               Drag your photo to adjust its position within the card
             </li>
             <li className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              <span className="h-2 w-2 rounded-full bg-indigo-400"></span>
               Use arrow keys for precise adjustments
             </li>
             <li className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              <span className="h-2 w-2 rounded-full bg-indigo-400"></span>
               Blue center lines help with alignment
             </li>
             <li className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              <span className="h-2 w-2 rounded-full bg-indigo-400"></span>
               White lines show the rule of thirds for composition
             </li>
             <li className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              <span className="h-2 w-2 rounded-full bg-indigo-400"></span>
               Adjust filters and blend modes for the perfect look
             </li>
             <li className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              <span className="h-2 w-2 rounded-full bg-indigo-400"></span>
               Use Ctrl+Z / Ctrl+Y to undo/redo changes
             </li>
           </ul>
@@ -465,7 +468,8 @@ export default function CardPreview({
         ref={canvasRef}
         width={1080}
         height={1080}
-        className="w-full rounded-lg border border-gray-300 shadow-md cursor-move"
+        className="w-full cursor-move rounded-lg border shadow-md transition-colors"
+        style={{ borderColor: 'var(--border)' }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -474,7 +478,7 @@ export default function CardPreview({
 
       <button
         onClick={confirmPosition}
-        className="mt-6 w-full py-3 bg-indigo-600 text-white rounded-lg shadow-lg">
+        className="mt-6 w-full rounded-lg bg-indigo-600 py-3 text-white shadow-lg transition hover:bg-indigo-700">
         Confirm Position & Save
       </button>
     </div>

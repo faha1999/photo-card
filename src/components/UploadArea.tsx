@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
 
 import { UploadAreaProps } from '../types';
-import { ChangeEvent, DragEvent } from 'react';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
@@ -94,11 +93,11 @@ export default function UploadArea({
   return (
     <>
       <div
-        className={`border-2 border-dashed rounded-lg p-6 text-center transition relative z-10
+        className={`relative z-10 rounded-lg border-2 border-dashed p-6 text-center transition-colors duration-300
         ${
           dragOver
-            ? 'border-indigo-400 bg-indigo-50'
-            : 'border-gray-300 bg-white'
+            ? 'border-indigo-400 bg-indigo-50 dark:border-indigo-300 dark:bg-indigo-950/40'
+            : 'border-gray-300 bg-white dark:border-slate-600 dark:bg-slate-900'
         }
       `}>
         <input
@@ -121,9 +120,9 @@ export default function UploadArea({
         />
         <label htmlFor="upload" className="cursor-pointer">
           {file ? (
-            <span className="text-gray-700">📷 {file.name}</span>
+            <span className="font-medium">📷 {file.name}</span>
           ) : (
-            <span className="text-gray-500">
+            <span className="text-muted">
               {isTemplate
                 ? 'Click or drag a PNG template file here'
                 : 'Click or drag a JPG or PNG photo here'}

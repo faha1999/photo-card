@@ -97,8 +97,8 @@ export default function HomePage() {
   };
 
   return (
-    <div className="space-y-8 p-4 md:p-8 bg-gray-50 min-h-screen">
-      <section className="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-4xl mx-auto">
+    <div className="space-y-8 p-4 md:p-8 min-h-screen transition-colors duration-300">
+      <section className="surface-card mx-auto max-w-4xl p-6 md:p-8">
         {/* Upload */}
         <UploadArea file={file} setFile={setFile} />
 
@@ -130,14 +130,14 @@ export default function HomePage() {
           <button
             onClick={handleGenerate}
             disabled={!file}
-            className="px-5 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition disabled:bg-gray-400">
+            className="px-5 py-3 rounded-xl bg-indigo-600 text-white transition hover:bg-indigo-700 disabled:bg-gray-400 disabled:text-gray-200">
             {isAdjusting ? 'Adjusting...' : 'Generate Card'}
           </button>
 
           <button
             onClick={handleDownload}
             disabled={!previewDataUrl || isLoading}
-            className="px-5 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition disabled:bg-gray-400">
+            className="px-5 py-3 rounded-xl bg-green-600 text-white transition hover:bg-green-700 disabled:bg-gray-400 disabled:text-gray-200">
             {isLoading
               ? 'Downloading...'
               : `Download (${exportFormat.toUpperCase()})`}
@@ -176,13 +176,14 @@ export default function HomePage() {
         {/* Final preview */}
         {previewDataUrl && !isAdjusting && (
           <div className="mt-6 max-w-md mx-auto text-center">
-            <h3 className="font-semibold mb-4 text-xl text-gray-800">
+            <h3 className="mb-4 text-xl font-semibold">
               Final Preview
             </h3>
             <img
               src={previewDataUrl}
               alt="Photo card preview"
-              className="rounded-xl border shadow-md w-full h-auto object-contain"
+              className="h-auto w-full rounded-xl border object-contain shadow-md transition-colors"
+              style={{ borderColor: 'var(--border)' }}
             />
           </div>
         )}

@@ -41,6 +41,7 @@ export interface CardPreviewProps {
   showGuides: boolean;
   onToggleGuides: () => void;
   filters?: FilterSettings;
+  className?: string;
 }
 
 export interface ControlsProps {

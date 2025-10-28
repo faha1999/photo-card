@@ -56,7 +56,7 @@ export default function RootLayout({
             </div>
           </header>
 
-          <main className="mx-auto w-full max-w-5xl px-4 py-8">
+          <main className="mx-auto w-full  px-4 py-8">
             {children}
           </main>
           <Analytics />

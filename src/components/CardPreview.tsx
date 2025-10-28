@@ -22,6 +22,7 @@ export default function CardPreview({
   showGuides,
   onToggleGuides,
   filters: initialFilters,
+  className,
 }: CardPreviewProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
@@ -331,13 +332,28 @@ export default function CardPreview({
   };
 
   return (
-    <div className="surface-card mx-auto mt-8 max-w-2xl p-6">
-      <h3 className="mb-6 select-none text-center text-2xl font-semibold text-indigo-700 dark:text-indigo-300">
-        Adjust Image Position
-      </h3>
+    <div className={`surface-card p-6 ${className ?? ''}`}>
+      <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="space-y-2">
+          <span className="text-xs font-semibold uppercase tracking-[0.35em] text-indigo-400">
+            Adjustment Studio
+          </span>
+          <h3 className="text-2xl font-semibold text-indigo-700 dark:text-indigo-300">
+            Fine-tune your composition
+          </h3>
+          <p className="text-sm text-muted">
+            Drag, rotate, and blend until every detail feels just right.
+          </p>
+        </div>
+        <button
+          onClick={confirmPosition}
+          className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-transparent">
+          Confirm Position &amp; Save
+        </button>
+      </div>
 
       {/* Controls Panel */}
-      <div className="flex flex-wrap justify-center gap-3 mb-4">
+      <div className="mb-5 flex flex-wrap items-center justify-center gap-3 md:justify-start">
         <button
           onClick={() => setRotation((r) => (r - 90 + 360) % 360)}
           className="rounded-md border border-indigo-500/40 bg-indigo-500/10 px-3 py-2 text-indigo-700 transition dark:border-indigo-400/30 dark:bg-indigo-900/30 dark:text-indigo-200">
@@ -476,11 +492,6 @@ export default function CardPreview({
         onMouseLeave={handleMouseUp}
       />
 
-      <button
-        onClick={confirmPosition}
-        className="mt-6 w-full rounded-lg bg-indigo-600 py-3 text-white shadow-lg transition hover:bg-indigo-700">
-        Confirm Position & Save
-      </button>
     </div>
   );
 }

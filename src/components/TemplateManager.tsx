@@ -103,7 +103,7 @@ export default function TemplateManager({
   };
 
   return (
-    <div className="surface-panel rounded-xl p-6 shadow">
+    <div className="surface-card rounded-2xl p-6">
       <h2 className="mb-4 text-lg font-semibold">Choose a Template</h2>
 
       {/* Upload Button */}

@@ -93,11 +93,11 @@ export default function UploadArea({
   return (
     <>
       <div
-        className={`relative z-10 rounded-lg border-2 border-dashed p-6 text-center transition-colors duration-300
+        className={`relative z-10 rounded-xl border-2 border-dashed p-6 text-center transition-all duration-300
         ${
           dragOver
             ? 'border-indigo-400 bg-indigo-50 dark:border-indigo-300 dark:bg-indigo-950/40'
-            : 'border-gray-300 bg-white dark:border-slate-600 dark:bg-slate-900'
+            : 'border-[color:var(--border)] bg-gradient-to-br from-slate-50 via-white to-slate-100 shadow-inner dark:from-slate-900 dark:via-slate-900 dark:to-slate-950'
         }
       `}>
         <input

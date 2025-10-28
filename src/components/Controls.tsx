@@ -33,7 +33,7 @@ export default function Controls({
           {scale}× Scale
         </span>
       </header>
-      <div className="grid grid-cols-1 gap-6 px-6 py-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid-cols-1 gap-6 px-6 py-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Scale */}
         <div className="space-y-3">
           <h4 className="font-semibold">Scale</h4>
